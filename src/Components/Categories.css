@@ -1,8 +1,8 @@
 .category-container {
   display: flex;
-  padding: 16px 10px;
-  border-top: 1px solid rgb(222, 222, 222);
-  border-bottom: 1px solid rgb(222, 222, 222);
+  padding: 19px 10px;
+  border-top: 1px solid rgb(161, 161, 161);
+  border-bottom: 1px solid rgb(161, 161, 161);
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -24,6 +24,7 @@
   background-color: rgba(0, 0, 0, 0.867);
   cursor: pointer;
   transition: 0.2s ease;
+  box-shadow: 2px 2px 5px rgb(48, 48, 48);
 }
 category-container::-webkit-scrollbar {
   display: none;
