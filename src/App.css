@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 .product-display {
   width: 100%;
@@ -13,4 +14,17 @@
   padding-top: 30px;
   padding: 20px;
   background-color: rgb(224, 224, 224);
+}
+.navbar-container {
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  top: 0px;
+  /* display: none; */
+}
+
+@media (max-width: 500px) {
+  .product-display {
+    gap: 5px;
+  }
 }

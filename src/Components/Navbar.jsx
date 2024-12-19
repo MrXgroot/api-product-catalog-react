@@ -7,11 +7,11 @@ import bell from "../assets/svg/bell.svg";
 import Searchbox from "./Seachbox";
 import "./Navbar.css";
 
-function Navbar() {
+function Navbar({ handleSearchProducts, category }) {
   const navListItems = ["Home", "About", "Contact", "Services"];
   const [clicked, updateClick] = useState(false);
   const [mobileButton, addMobileButton] = useState(false);
-  const [searchbtn, updateSearchbtn] = useState(false);
+  const [searchbtn, updateSearchbtn] = useState(true);
   const handleBtnClick = () => {
     updateClick((c) => !c);
   };
@@ -54,7 +54,10 @@ function Navbar() {
         />
       </nav>
       <div className={`show-search-bar ${searchbtn ? `active` : `hide`}`}>
-        <Searchbox></Searchbox>
+        <Searchbox
+          handleSearchProducts={handleSearchProducts}
+          category={category}
+        ></Searchbox>
       </div>
     </>
   );

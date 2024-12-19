@@ -4,6 +4,7 @@
   border-bottom: 1px solid rgb(161, 161, 161);
   width: 100%;
   position: relative;
+  background-color: white;
 }
 
 .navbar-logo-container {
@@ -42,14 +43,14 @@
 .nav-list-container {
   position: absolute;
   left: 0;
-  z-index: 100;
+  z-index: 1;
   list-style-type: none;
   background-color: rgb(255, 255, 255);
   width: 46%;
   height: 100vh;
   left: -100%;
   top: 0;
-  transition: left 0.2s ease;
+  transition: left 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
 }
@@ -79,4 +80,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    height: 60px;
+  }
+  .logo {
+    font-size: 1.2rem;
+  }
+  .show-search-bar {
+    height: 60px;
+  }
 }

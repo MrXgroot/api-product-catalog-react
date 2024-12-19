@@ -4,76 +4,96 @@ import Categories from "./Components/Categories.jsx";
 import "./App.css";
 import ProductCard from "./Components/ProductCard.jsx";
 import { useEffect, useState } from "react";
+
 function App() {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const categories = [
+    { categoryName: "Mobiles", endpoint: "/mobiles" },
+    { categoryName: "Laptops", endpoint: "/laptops" },
+    { categoryName: "Watches", endpoint: "/watches" },
+    { categoryName: "Kids Footwear", endpoint: "/kidsfootwear" },
+    { categoryName: "Books", endpoint: "/books" },
+    { categoryName: "Female Footwear", endpoint: "/femalefootwear" },
+    { categoryName: "Male Footwear", endpoint: "/malefootwear" },
+    { categoryName: "Kidswear", endpoint: "/kidswear" },
+    { categoryName: "Womenswear", endpoint: "/womenswear" },
+    { categoryName: "Menswear", endpoint: "/menswear" },
+  ];
+
   const [skeletonScreen, setSkeletonScreen] = useState(true);
   const [productIndex, setProductIndex] = useState(0);
 
   const handleChangeCategory = (index) => {
+    setSkeletonScreen(true);
     setProductIndex(index);
+  };
+  const fetchProducts = async (productIndex) => {
+    const url =
+      "https://ecommerce-api3.p.rapidapi.com" +
+      categories[productIndex].endpoint;
+    const options = {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "a9071d683dmsh88aa0dc241dce76p179626jsn400ef8afd317",
+        "x-rapidapi-host": "ecommerce-api3.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw error;
+    }
   };
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const categoryResponse = await fetch(
-          "https://dummyjson.com/products/categories"
-        );
-        const categoryData = await categoryResponse.json();
-        setCategories(categoryData);
-
-        if (categoryData.length > 0) {
-          const productResponse = await fetch(categoryData[productIndex].url);
-          const productData = await productResponse.json();
-          console.log(productData.products);
-          setProducts(productData.products);
-          setSkeletonScreen(false);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    if (categories.length === 0) return;
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(categories[productIndex].url);
-        const data = await response.json();
-        setProducts(data.products);
-        setSkeletonScreen(false);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchProducts();
+    fetchProducts(productIndex).then((products) => {
+      console.log(products);
+      setProducts(products);
+      setSkeletonScreen(false);
+    });
   }, [productIndex]);
+
+  //right logic for this part
+  const handleSearchProducts = (searchTerm) => {
+    fetchProducts(productIndex).then((products) => {
+      const filteredProducts = products.filter((product) =>
+        product.Brand.toLowerCase().includes(searchTerm)
+      );
+      if (filteredProducts.length > 0) setProducts(filteredProducts);
+    });
+  };
 
   return (
     <div className="container">
       <Router>
-        <Navbar />
+        <div className="navbar-container">
+          <Navbar
+            handleSearchProducts={handleSearchProducts}
+            category={categories[productIndex].categoryName}
+          />
+        </div>
+
         <Categories
-          CategoryList={categories}
+          productIndex={productIndex}
+          Categories={categories}
           changeCategory={handleChangeCategory}
         />
         <div className="product-display">
           {skeletonScreen ? (
-            <h2>loading....</h2>
+            <h2>Loading...</h2>
           ) : (
-            products.map((product, index) => (
-              <ProductCard Products={product} key={product.id}></ProductCard>
+            products.map((product, key) => (
+              <ProductCard Products={product} key={key} active={false} />
             ))
           )}
         </div>
-
         <section className="about"></section>
       </Router>
     </div>
   );
 }
+
 export default App;

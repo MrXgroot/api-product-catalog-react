@@ -5,15 +5,17 @@ function ProductCard({ Products }) {
     <div className="product-card">
       <div className="image-container">
         <img
-          src={Products.images}
+          src={Products.Image}
           alt="Productimage"
           className="product-image"
         />
-        <p className="product-description">{Products.description}</p>
+        <p className="product-description">{Products.Description}</p>
       </div>
       <div className="product-details">
-        <h3>{Products.title}</h3>
-        <p className="product-price">${Products.price}</p>
+        <div className="details-container">
+          <h3>{Products.Brand}</h3>
+          <p className="product-price">{Products.Price}</p>
+        </div>
       </div>
     </div>
   );

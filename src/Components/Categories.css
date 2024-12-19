@@ -8,6 +8,8 @@
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  margin-top: 170px;
+  align-items: center;
 }
 
 .category-item-card {
@@ -40,4 +42,22 @@ category-container::-webkit-scrollbar {
 
 .category-item-card:hover .item-name {
   color: rgb(0, 0, 0);
+}
+.selected {
+  background-color: white;
+  color: black;
+  border: none;
+}
+
+@media (max-width: 500px) {
+  .category-container {
+    margin-top: 120px;
+    height: 70px;
+  }
+  .category-item-card {
+    height: 10px;
+    font-size: 0.7rem;
+    padding: 14px 10px;
+    justify-content: center;
+  }
 }

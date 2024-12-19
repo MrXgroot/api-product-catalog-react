@@ -1,17 +1,22 @@
 import "./Categories.css";
 
-function Categories({ CategoryList, changeCategory }) {
+function Categories({ Categories, changeCategory, productIndex }) {
+  console.log(productIndex);
   return (
     <div className="category-container">
-      {CategoryList.map((category, index) => (
+      {Categories.map((category, index) => (
         <div
-          className="category-item-card"
+          className={`category-item-card ${
+            index == productIndex ? `selected` : ``
+          }`}
           key={index}
           onClick={() => {
             changeCategory(index);
           }}
         >
-          <p className="item-name">{category.name}</p>
+          <p className={`item-name ${index == productIndex ? `selected` : ``}`}>
+            {category.categoryName}
+          </p>
         </div>
       ))}
     </div>
