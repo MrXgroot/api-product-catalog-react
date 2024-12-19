@@ -9,10 +9,12 @@
   display: flex;
   height: auto;
   flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  padding-top: 30px;
-  padding: 20px;
+  /* row-gap: 15px; */
+  justify-content: space-around;
+
+  /* align-items: center; */
+  /* padding-top: 30px; */
+  padding-top: 5px;
   background-color: rgb(224, 224, 224);
 }
 .navbar-container {
@@ -25,6 +27,7 @@
 
 @media (max-width: 500px) {
   .product-display {
-    gap: 5px;
+    /* padding-top: 15px; */
+    /* row-gap: 15px; */
   }
 }

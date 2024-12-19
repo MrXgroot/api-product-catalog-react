@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import bars from "../assets/svg/bars.svg";
 import close from "../assets/svg/close1.svg";
 import search from "../assets/svg/search.svg";
-import bell from "../assets/svg/bell.svg";
+import cart from "../assets/svg/cart.svg";
 import Searchbox from "./Seachbox";
 import "./Navbar.css";
 
@@ -11,13 +11,10 @@ function Navbar({ handleSearchProducts, category }) {
   const navListItems = ["Home", "About", "Contact", "Services"];
   const [clicked, updateClick] = useState(false);
   const [mobileButton, addMobileButton] = useState(false);
-  const [searchbtn, updateSearchbtn] = useState(true);
   const handleBtnClick = () => {
     updateClick((c) => !c);
   };
-  const handleSearch = () => {
-    updateSearchbtn((s) => !s);
-  };
+  const handleCartBtn = () => {};
   return (
     <>
       <nav className="navbar">
@@ -44,16 +41,11 @@ function Navbar({ handleSearchProducts, category }) {
             </li>
           ))}
         </ul>
-        <div className="navbar-search-container"></div>
-        <img src={bell} alt="Bell-icon" className="bell-icon" />
-        <img
-          src={search}
-          alt="Search-icon"
-          onClick={handleSearch}
-          className="search-icon"
-        />
+        <div className="navbar-search-container">
+          <img src={cart} alt="cart-btn" className="cart-btn" />
+        </div>
       </nav>
-      <div className={`show-search-bar ${searchbtn ? `active` : `hide`}`}>
+      <div className="show-search-bar">
         <Searchbox
           handleSearchProducts={handleSearchProducts}
           category={category}

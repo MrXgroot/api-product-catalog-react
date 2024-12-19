@@ -12,10 +12,8 @@ function ProductCard({ Products }) {
         <p className="product-description">{Products.Description}</p>
       </div>
       <div className="product-details">
-        <div className="details-container">
-          <h3>{Products.Brand}</h3>
-          <p className="product-price">{Products.Price}</p>
-        </div>
+        <h3>{Products.Brand}</h3>
+        <p className="product-price">{Products.Price}</p>
       </div>
     </div>
   );
