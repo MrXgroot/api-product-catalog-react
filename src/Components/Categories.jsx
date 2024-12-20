@@ -1,7 +1,6 @@
 import "./Categories.css";
 
 function Categories({ Categories, changeCategory, productIndex }) {
-  console.log(productIndex);
   return (
     <div className="category-container">
       {Categories.map((category, index) => (

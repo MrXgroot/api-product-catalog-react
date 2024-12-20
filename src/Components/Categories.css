@@ -57,7 +57,7 @@ category-container::-webkit-scrollbar {
   .category-item-card {
     height: 10px;
     font-size: 0.7rem;
-    padding: 14px 10px;
+    padding: 15px 10px;
     justify-content: center;
   }
 }

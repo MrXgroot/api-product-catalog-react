@@ -4,7 +4,7 @@ import Categories from "./Components/Categories.jsx";
 import "./App.css";
 import ProductCard from "./Components/ProductCard.jsx";
 import { useEffect, useState } from "react";
-
+import CartCard from "./Components/CartCard.jsx";
 function App() {
   const [products, setProducts] = useState([]);
   const categories = [
@@ -22,7 +22,19 @@ function App() {
 
   const [skeletonScreen, setSkeletonScreen] = useState(true);
   const [productIndex, setProductIndex] = useState(0);
-
+  const [cartProducts, setCartProducts] = useState([]);
+  const [showCartProducts, setShowCartProducts] = useState(false);
+  const handleAddToCart = (product) => {
+    if (cartProducts.includes(product)) {
+      product.quantity++;
+      setProducts((prev) => [...prev, product]);
+    } else {
+      product.quantity = 1;
+      setCartProducts((prev) => {
+        return [...prev, product];
+      });
+    }
+  };
   const handleChangeCategory = (index) => {
     setSkeletonScreen(true);
     setProductIndex(index);
@@ -49,11 +61,17 @@ function App() {
   };
 
   useEffect(() => {
-    fetchProducts(productIndex).then((products) => {
-      console.log(products);
-      setProducts(products);
-      setSkeletonScreen(false);
+    window.addEventListener("popstate", (e) => {
+      if (showCartProducts) setShowCartProducts(false);
     });
+    fetchProducts(productIndex)
+      .then((products) => {
+        setProducts(products);
+        setSkeletonScreen(false);
+      })
+      .catch((e) => {
+        window.location.reload();
+      });
   }, [productIndex]);
 
   //right logic for this part
@@ -73,24 +91,47 @@ function App() {
           <Navbar
             handleSearchProducts={handleSearchProducts}
             category={categories[productIndex].categoryName}
+            cartProductCount={cartProducts.length}
+            setShowCartProducts={setShowCartProducts}
           />
         </div>
 
-        <Categories
-          productIndex={productIndex}
-          Categories={categories}
-          changeCategory={handleChangeCategory}
-        />
-        <div className="product-display">
-          {skeletonScreen ? (
-            <h2>Loading...</h2>
-          ) : (
-            products.map((product, key) => (
-              <ProductCard Products={product} key={key} active={false} />
-            ))
-          )}
-        </div>
-        <section className="about"></section>
+        {showCartProducts ? (
+          <div className="cart-display">
+            {cartProducts.length > 0 ? (
+              cartProducts.map((product, key) => (
+                <CartCard
+                  product={product}
+                  key={key}
+                  setProducts={setProducts}
+                />
+              ))
+            ) : (
+              <h2>No items in the Cart</h2>
+            )}
+          </div>
+        ) : (
+          <>
+            <Categories
+              productIndex={productIndex}
+              Categories={categories}
+              changeCategory={handleChangeCategory}
+            />
+            <div className="product-display">
+              {skeletonScreen ? (
+                <h2>Loading...</h2>
+              ) : (
+                products.map((product, key) => (
+                  <ProductCard
+                    Products={product}
+                    key={key}
+                    handleAddToCart={handleAddToCart}
+                  />
+                ))
+              )}
+            </div>
+          </>
+        )}
       </Router>
     </div>
   );

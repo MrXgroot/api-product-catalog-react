@@ -7,14 +7,18 @@ import cart from "../assets/svg/cart.svg";
 import Searchbox from "./Seachbox";
 import "./Navbar.css";
 
-function Navbar({ handleSearchProducts, category }) {
+function Navbar({
+  handleSearchProducts,
+  category,
+  cartProductCount,
+  setShowCartProducts,
+}) {
   const navListItems = ["Home", "About", "Contact", "Services"];
   const [clicked, updateClick] = useState(false);
   const [mobileButton, addMobileButton] = useState(false);
   const handleBtnClick = () => {
     updateClick((c) => !c);
   };
-  const handleCartBtn = () => {};
   return (
     <>
       <nav className="navbar">
@@ -42,7 +46,15 @@ function Navbar({ handleSearchProducts, category }) {
           ))}
         </ul>
         <div className="navbar-search-container">
-          <img src={cart} alt="cart-btn" className="cart-btn" />
+          <img
+            src={cart}
+            alt="cart-btn"
+            className="cart-btn"
+            onClick={() => setShowCartProducts((prev) => !prev)}
+          />
+          {cartProductCount > 0 && (
+            <div className="indication">{cartProductCount}</div>
+          )}
         </div>
       </nav>
       <div className="show-search-bar">

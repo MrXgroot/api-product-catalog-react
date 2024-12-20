@@ -1,5 +1,4 @@
 .product-card {
-  /* flex: 1 1 auto; */
   display: flex;
   flex-direction: column;
   border: 1px solid rgb(191, 191, 191);
@@ -10,20 +9,20 @@
   overflow: hidden;
   background-color: white;
   box-sizing: border-box;
-  /* gap: 10px; */
   margin: 8px;
   flex: 1;
+  position: relative;
 }
 
 .image-container {
   height: 300px;
-  position: relative;
-  /* overflow: hidden; */
+  /* position: relative; */
+  width: 100%;
   border-bottom: 1px solid rgb(171, 171, 171);
 }
 
 .product-image {
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   height: 100%;
   transition: transform 0.2s ease;
@@ -31,25 +30,26 @@
 .product-description {
   position: absolute;
   top: 200%;
-  color: white;
+  left: 0px;
+  color: rgb(233, 233, 233);
   width: 100%;
   background-color: rgba(0, 0, 0, 0.788);
   text-align: center;
   transition: top 0.4s ease;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 20px;
-  /* height: auto; */
+  margin: 0px;
   z-index: 3;
-  /* top: 0; */
-  height: 100%;
-  max-height: 100%;
+  height: 50%;
   overflow-y: auto;
   box-sizing: border-box;
+  padding: 5px;
+  font-size: 0.9rem;
+  /* scrollbar-width: none; */
 }
 
 .image-container:hover .product-description {
   display: block;
-  top: 40%;
+  top: 30%;
   max-height: 100%;
 }
 
@@ -59,7 +59,7 @@
 
 .product-details {
   width: 100%;
-  color: white;
+  color: rgb(184, 184, 184);
   background-color: rgb(50, 50, 50);
   display: flex;
   flex-direction: column;
@@ -67,16 +67,32 @@
   justify-content: space-around;
   padding: 15px;
   z-index: 5;
+  flex: 1;
 }
-
+.price-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.product-price {
+  color: white;
+}
+.cart-svg {
+  width: 30px;
+  height: 30px;
+  stroke: white;
+  fill: white;
+}
+.cart-svg:active {
+  transform: scale(1.1);
+  stroke: white;
+}
 @media (max-width: 500px) {
   .product-card {
     max-width: 250px;
     min-width: 150px;
-    /* min-height: 150px; */
-    /* height: 200px; */
     max-height: 300px;
-    /* height: auto; */
     margin: 3px;
     flex: 1;
   }
@@ -98,4 +114,21 @@
     padding: 0px;
     margin: 0px;
   }
+}
+.cart-svg {
+  position: relative;
+}
+.cart-indication {
+  width: 18px;
+  height: 18px;
+  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -40%;
+  right: -40%;
+  color: white;
+  font-weight: bold;
 }
