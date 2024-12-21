@@ -10,7 +10,7 @@ function ProductCard({ Products, handleAddToCart }) {
           className="product-image"
         />
 
-        <p className="product-description">{Products.Description}</p>
+        {/* <p className="product-description">{Products.Description}</p> */}
       </div>
       <div className="product-details">
         <h3>{Products.Brand}</h3>

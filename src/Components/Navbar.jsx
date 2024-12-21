@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import bars from "../assets/svg/bars.svg";
 import close from "../assets/svg/close1.svg";
@@ -6,19 +6,20 @@ import search from "../assets/svg/search.svg";
 import cart from "../assets/svg/cart.svg";
 import Searchbox from "./Seachbox";
 import "./Navbar.css";
-
-function Navbar({
-  handleSearchProducts,
-  category,
-  cartProductCount,
-  setShowCartProducts,
-}) {
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+function Navbar() {
+  const { category, setShowCartProducts, handleSearchProducts, cartProducts } =
+    useContext(AppContext);
   const navListItems = ["Home", "About", "Contact", "Services"];
   const [clicked, updateClick] = useState(false);
   const [mobileButton, addMobileButton] = useState(false);
+  const navigate = useNavigate();
+  const cartProductCount = cartProducts.length;
   const handleBtnClick = () => {
     updateClick((c) => !c);
   };
+  const [cartClicked, setCartClicked] = useState(false);
   return (
     <>
       <nav className="navbar">
@@ -39,7 +40,7 @@ function Navbar({
         >
           {navListItems.map((items, key) => (
             <li className="nav-list" key={key}>
-              <Link to={`/${items.toLowerCase()}`} className="nav-items">
+              <Link to={`/`} className="nav-items">
                 {items}
               </Link>
             </li>
@@ -50,7 +51,10 @@ function Navbar({
             src={cart}
             alt="cart-btn"
             className="cart-btn"
-            onClick={() => setShowCartProducts((prev) => !prev)}
+            onClick={() => {
+              navigate(cartClicked ? "/cart" : "/");
+              setCartClicked((prev) => !prev);
+            }}
           />
           {cartProductCount > 0 && (
             <div className="indication">{cartProductCount}</div>

@@ -7,10 +7,7 @@ function Searchbox({ handleSearchProducts, category }) {
     e.preventDefault();
     handleSearchProducts(searchTerm);
   };
-  const searchInputRef = useRef(null);
-  useEffect(() => {
-    searchInputRef.current.focus();
-  }, []);
+
   return (
     <form className="search-form" onSubmit={handleSubmit}>
       <input
@@ -19,9 +16,8 @@ function Searchbox({ handleSearchProducts, category }) {
         className="search-input"
         placeholder={`Search for ${category}`}
         onChange={(e) => setSearchTerm(e.target.value)}
-        ref={searchInputRef}
       />
-      <button className="search-btn">
+      <button className="search-btn" type="submit">
         <img src={search} alt="" className="search-logo" />
       </button>
     </form>
